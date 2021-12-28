@@ -1,8 +1,8 @@
-import { createWebHistory, createRouter } from "vue-router";
-import Login from "./components/registration/Login";
-import Register from "./components/registration/Register";
-import Profile from "./components/registration/Profile"
-import Home from "./components/registration/Home"
+import { createWebHistory, createRouter } from 'vue-router';
+import Login from './components/registration/Login';
+import Register from './components/registration/Register';
+import Profile from './components/registration/Profile';
+import Home from './components/registration/Home';
 // lazy-loaded
 
 const routes = [
@@ -28,6 +28,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-
 
 export default router;
