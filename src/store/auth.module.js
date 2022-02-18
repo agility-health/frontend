@@ -1,29 +1,37 @@
 import axios from 'axios';
-
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+import { login_url, registration_url } from "../urls"
 
 export const auth = {
   namespaced: true,
-  state: initialState,
+  state: status,
   actions: {
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({ url: 'http://localhost:5000/login', data: user, method: 'POST' })
+        axios({ url: login_url,
+         data:{
+           email: user.email,
+           password: user.password
+         },
+          method: 'POST' })
           .then((resp) => {
-            const token = resp.data.token;
-            const user = resp.data.user;
-            localStorage.setItem('token', token);
-            axios.defaults.headers.common['Authorization'] = token;
-            commit('auth_success', token, user);
+            if (resp.data.access_token && resp.data.refresh_token){
+              const access_token = resp.data.access_token;
+              const refresh_token = resp.data.refresh_token;
+              localStorage.setItem('access_token', access_token);
+              localStorage.setItem('refresh_token', refresh_token);
+              //axios.defaults.headers.common['Authorization'] = token;
+              commit('auth_success');
+            }
+            else{
+
+            }
             resolve(resp);
           })
           .catch((err) => {
             commit('auth_error');
-            localStorage.removeItem('token');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
             reject(err);
           });
       });
@@ -31,28 +39,37 @@ export const auth = {
     logout({ commit }) {
       return new Promise((resolve) => {
         commit('logout');
-        localStorage.removeItem('token');
-        delete axios.defaults.headers.common['Authorization'];
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        //delete axios.defaults.headers.common['Authorization'];
         resolve();
       });
     },
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({ url: 'http://localhost:5000/registration', data: user, method: 'POST' })
-          .then((resp) => {
-            const token = resp.data.token;
-            const user = resp.data.user;
-            localStorage.setItem('token', token);
-            axios.defaults.headers.common['Authorization'] = token;
-            commit('auth_success', token, user);
-            resolve(resp);
-          })
-          .catch((err) => {
-            commit('auth_error', err);
-            localStorage.removeItem('token');
-            reject(err);
-          });
+        axios({ url: registration_url, 
+        data:{
+          name: user.name,
+          email: user.email,
+          password: user.password
+        },
+        method: 'POST' })
+        .then((resp) => {
+          const access_token = resp.data.access_token;
+          const refresh_token = resp.data.refresh_token;
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('refresh_token', refresh_token);
+          //axios.defaults.headers.common['Authorization'] = token;
+          commit('auth_success');
+          resolve(resp);
+        })
+        .catch((err) => {
+          commit('auth_error');
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          reject(err);
+        });
       });
     },
   },
@@ -60,17 +77,19 @@ export const auth = {
     auth_request(state) {
       state.status = 'loading';
     },
-    auth_success(state, token, user) {
+    auth_success(state) {
       state.status = 'success';
-      state.token = token;
-      state.user = user;
     },
     auth_error(state) {
       state.status = 'error';
     },
     logout(state) {
       state.status = '';
-      state.token = '';
     },
   },
+  getters:{
+    userStatus(state) {
+      return state.status
+    }  
+  }
 };

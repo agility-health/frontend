@@ -20,6 +20,12 @@
     "vuex": "^4.0.2",
     "yorkie": "^2.0.0"
   },
+  "lint-staged": {
+    "*.(js|vue)": [
+      "npm run lint:write",
+      "git add ."
+    ]
+  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -29,6 +35,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.2.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^8.2.1",
     "prettier": "^2.5.1"
   },
   "browserslist": [

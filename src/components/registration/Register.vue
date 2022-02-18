@@ -21,6 +21,7 @@
       <div>
           <button class="state confim" >Register</button>
       </div>
+      <span class="check_confirm_password" v-if="!check_confirm_password">The confirmation password must match the password</span>
     </form>
   </div>
 </template>
@@ -33,7 +34,15 @@
         email : "",
         password : "",
         password_confirmation : "",
-        is_admin : null
+
+      }
+    },
+    computed: {
+      check_confirm_password: function(){
+        if (this.password && this.password_confirmation){
+          return this.password === this.password_confirmation
+        }
+        return true
       }
     },
     methods: {
@@ -41,12 +50,13 @@
         let data = {
           name: this.name,
           email: this.email,
-          password: this.password,
-          is_admin: this.is_admin
+          password: this.password
         }
-        this.$store.dispatch('auth/register', data)
-       .then(() => this.$router.push('/'))
-       .catch(err => console.log(err))
+        if (this.check_confirm_password){
+          this.$store.dispatch('auth/register', data)
+          .then(() => this.$router.push('/'))
+          .catch(err => console.log(err))
+        }
       }
     }
   }
@@ -192,6 +202,11 @@ footer {
 }
 .confim:hover{
   background-color: #56ca35
+}
+
+.check_confirm_password{
+  font-size: 0.8rem;
+  color: #F2472E
 }
 
 </style>

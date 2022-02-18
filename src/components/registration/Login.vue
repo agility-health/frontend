@@ -23,6 +23,11 @@
         password : ""
       }
     },
+    computed: {
+        status(){
+          return this.$store.state.auth.access_token
+        }
+    },
     methods: {
       login: function () {
         let email = this.email 
