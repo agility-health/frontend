@@ -1,15 +1,14 @@
 <template>
  <div class="wrapper">
    <form class="login" @submit.prevent="login">
-     <h1 class="title">Sign in</h1>
+     <h1 class="title">Agillity Health</h1>
      <label>Email</label>
      <input required v-model="email" type="email" placeholder="Name"/>
      <label>Password</label>
      <input required v-model="password" type="password" placeholder="Password"/>
-     <hr/>
      <a href="#">Forgot your password?</a>
       <div>
-          <button class="state confim" >Register</button>
+          <button class="state confim">Sign in</button>
       </div>
    </form>
  </div>
@@ -90,7 +89,7 @@
 
 .title {
     color: #444;
-    font-size: 1.2em;
+    font-size: 1.6em;
     font-weight: bold;
     margin: 10px 0 30px 0;
     border-bottom: 1px solid #eee;
@@ -155,7 +154,7 @@ input {
     border: 1px solid #ddd;
     transition: border-width 0.2s ease;
     border-radius: 2px;
-    color: #ccc;
+    color: #000;
     
     &+ i.fa {
         color: #fff;
@@ -185,6 +184,11 @@ input {
    font-size: 0.8em;   
     color: $primary;
     text-decoration: none;
+  }
+
+  label {
+    color: #444;
+    font-weight: 600
   }
 
 footer {

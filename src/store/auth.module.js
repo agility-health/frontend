@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { login_url, registration_url } from "../urls"
+import { login_url, registration_url } from '../urls';
 
 export const auth = {
   namespaced: true,
@@ -8,23 +8,23 @@ export const auth = {
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({ url: login_url,
-         data:{
-           email: user.email,
-           password: user.password
-         },
-          method: 'POST' })
+        axios({
+          url: login_url,
+          data: {
+            email: user.email,
+            password: user.password,
+          },
+          method: 'POST',
+        })
           .then((resp) => {
-            if (resp.data.access_token && resp.data.refresh_token){
+            if (resp.data.access_token && resp.data.refresh_token) {
               const access_token = resp.data.access_token;
               const refresh_token = resp.data.refresh_token;
               localStorage.setItem('access_token', access_token);
               localStorage.setItem('refresh_token', refresh_token);
               //axios.defaults.headers.common['Authorization'] = token;
               commit('auth_success');
-            }
-            else{
-
+            } else {
             }
             resolve(resp);
           })
@@ -48,28 +48,30 @@ export const auth = {
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request');
-        axios({ url: registration_url, 
-        data:{
-          name: user.name,
-          email: user.email,
-          password: user.password
-        },
-        method: 'POST' })
-        .then((resp) => {
-          const access_token = resp.data.access_token;
-          const refresh_token = resp.data.refresh_token;
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('refresh_token', refresh_token);
-          //axios.defaults.headers.common['Authorization'] = token;
-          commit('auth_success');
-          resolve(resp);
+        axios({
+          url: registration_url,
+          data: {
+            name: user.name,
+            email: user.email,
+            password: user.password,
+          },
+          method: 'POST',
         })
-        .catch((err) => {
-          commit('auth_error');
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          reject(err);
-        });
+          .then((resp) => {
+            const access_token = resp.data.access_token;
+            const refresh_token = resp.data.refresh_token;
+            localStorage.setItem('access_token', access_token);
+            localStorage.setItem('refresh_token', refresh_token);
+            //axios.defaults.headers.common['Authorization'] = token;
+            commit('auth_success');
+            resolve(resp);
+          })
+          .catch((err) => {
+            commit('auth_error');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            reject(err);
+          });
       });
     },
   },
@@ -87,9 +89,9 @@ export const auth = {
       state.status = '';
     },
   },
-  getters:{
+  getters: {
     userStatus(state) {
-      return state.status
-    }  
-  }
+      return state.status;
+    },
+  },
 };

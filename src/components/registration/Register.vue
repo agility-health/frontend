@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h4>Register</h4>
+    <h4>Agillity Health</h4>
     <form  class="registration" @submit.prevent="register">
       <label for="name">Name</label>
       <div>
@@ -19,7 +19,7 @@
           <input id="password-confirm" type="password" v-model="password_confirmation" required>
       </div>
       <div>
-          <button class="state confim" >Register</button>
+          <button class="state confim">Register</button>
       </div>
       <span class="check_confirm_password" v-if="!check_confirm_password">The confirmation password must match the password</span>
     </form>
@@ -62,7 +62,7 @@
   }
 </script>
 <style scoped>
- .wrapper {
+.wrapper {
   display: flex;
   align-items: center;
   flex-direction: column; 
@@ -71,6 +71,7 @@
   min-height: 100%;
   padding: 20px;
   background: rgba(darken($primary,40%), 0.85);
+  color: #000;
 }
 
 .registration {
@@ -86,7 +87,7 @@
 
 .title {
     color: #444;
-    font-size: 1.2em;
+    font-size: 1.6em;
     font-weight: bold;
     margin: 10px 0 30px 0;
     border-bottom: 1px solid #eee;
@@ -107,7 +108,7 @@
     bottom: 0;
     max-height: 60px;
     border: 0px solid rgba(0,0,0,0.1);
-  border-radius: 0 0 2px 2px;
+    border-radius: 0 0 2px 2px;
     transform: rotateZ(0deg);
     
     transition: all 0.1s ease-out;
@@ -151,7 +152,7 @@ input {
     border: 1px solid #ddd;
     transition: border-width 0.2s ease;
     border-radius: 2px;
-    color: #ccc;
+    color: #000;
     
     &+ i.fa {
         color: #fff;
@@ -181,6 +182,11 @@ input {
    font-size: 0.8em;   
     color: $primary;
     text-decoration: none;
+  }
+
+  label {
+    color: #444;
+    font-weight: 600
   }
 
 footer {
