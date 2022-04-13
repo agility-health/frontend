@@ -32,8 +32,8 @@
         let email = this.email 
         let password = this.password
         this.$store.dispatch('auth/login', { email, password })
-       .then(() => this.$router.push('/'))
-       .catch(err => console.log(err))
+         .then(() => this.$router.push('doctor-profile'))
+         .catch(err => console.log(err))
       }
     }
   }
