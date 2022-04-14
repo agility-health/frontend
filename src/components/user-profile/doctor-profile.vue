@@ -136,28 +136,28 @@ export default{
     	}
   	},
   	created(){
-		this.$store.dispatch('profile/getDoctor')
+		this.$store.dispatch('doctor/getDoctor')
 			.then(() => {
-				this.doctor = this.$store.state.profile.doctor
+				this.doctor = this.$store.state.doctor.doctor
 			})
-		this.$store.dispatch('profile/getEducation')
+		this.$store.dispatch('doctor/getEducation')
 			.then(() => {
-				this.allEducation = this.$store.state.profile.education
+				this.allEducation = this.$store.state.doctor.education
 			})
 
   	},
     methods: {
     	createDoctor(event){
-    		this.$store.dispatch('profile/createDoctor',  this.doctor)
+    		this.$store.dispatch('doctor/createDoctor',  this.doctor)
     	},
     	updateDoctor(event){
-    		this.$store.dispatch('profile/updateDoctor',  this.doctor)
+    		this.$store.dispatch('doctor/updateDoctor',  this.doctor)
     	},
     	createEducation(event){
-    		this.$store.dispatch('profile/createEducation',  this.education)
+    		this.$store.dispatch('doctor/createEducation',  this.education)
     	},
     	updateEducation(ed){
-    		this.$store.dispatch('profile/updateEducation',  ed)
+    		this.$store.dispatch('doctor/updateEducation',  ed)
     	}
 
     }

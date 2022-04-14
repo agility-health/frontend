@@ -3,11 +3,11 @@ import { login_url, registration_url, user_url } from '../urls';
 
 export const auth = {
   namespaced: true,
-  
+
   state: {
     user: {},
     status: {},
-    check:0
+    check: 0,
   },
 
   mutations: {
@@ -25,11 +25,9 @@ export const auth = {
     },
 
     SET_USERS(state, user) {
-
-          state.user = user
-          state.status = {id:1}
-          state.check = 1
-          
+      state.user = user;
+      state.status = { id: 1 };
+      state.check = 1;
     },
   },
 
@@ -63,8 +61,7 @@ export const auth = {
             localStorage.removeItem('refresh_token');
             reject(err);
           });
-          this.dispatch('auth/get_user_profile', {self: this})
-
+        this.dispatch('auth/get_user_profile', { self: this });
       });
     },
     logout({ commit }) {
@@ -72,7 +69,7 @@ export const auth = {
         commit('logout');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        commit("SET_USERS", {})
+        commit('SET_USERS', {});
         //delete axios.defaults.headers.common['Authorization'];
         resolve();
       });
@@ -106,30 +103,31 @@ export const auth = {
           });
       });
     },
-    get_user_profile({ commit }){
-      axios.get(user_url,  {
+    get_user_profile({ commit }) {
+      axios
+        .get(user_url, {
           headers: {
-            'x-access-tokens': localStorage.getItem('access_token')
-          }
+            'x-access-tokens': localStorage.getItem('access_token'),
+          },
         })
-          .then(response => {
-            commit("SET_USERS", response.data)
-          })
-          .catch((error) => {
-            console.log(error.statusText)
-          })
-    }
+        .then((response) => {
+          commit('SET_USERS', response.data);
+        })
+        .catch((error) => {
+          console.log(error.statusText);
+        });
+    },
   },
 
   getters: {
     userStatus(state) {
       return state.status;
     },
-    user(state){
-      return state.user
+    user(state) {
+      return state.user;
     },
-    user_id(state){
-      return state.user.id
-    }
+    user_id(state) {
+      return state.user.id;
+    },
   },
 };
