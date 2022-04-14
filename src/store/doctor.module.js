@@ -2,7 +2,7 @@ import axios from 'axios';
 import { user_url, doctor_url, get_doctor_url, get_education_url, get_education_by_id_url } from '../urls';
 import { mapGetters } from "vuex"
 
-export const profile = {
+export const doctor = {
 	namespaced: true,
   	state: {
   		doctor :{},

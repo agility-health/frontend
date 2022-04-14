@@ -1,11 +1,6 @@
 <template>
-	<h1>
-		{{ user.name }}
-	</h1>
-
-	<h1>
-		Is new: {{ is_new }}
-	</h1>
+	<custom-header>
+	</custom-header>
 	<div class="container rounded bg-white mt-5 mb-5">
 	    <div class="row">
 	        <div class="col-md-3 border-right">
@@ -100,13 +95,22 @@
 		           		 </div>
 	            	</div>
 	        </div>
-
 	        </div>
 	    </div>
+	<custom-footer>
+	</custom-footer>
 </template>
 
 <script type="text/javascript">
+
+import customHeader  from '../navigation/custom-header'
+import customFooter from '../navigation/custom-footer.vue'
+
 export default{
+	components: {
+      customHeader,
+	  customFooter,
+    },
 	data(){
       return {
       	doctor:{
